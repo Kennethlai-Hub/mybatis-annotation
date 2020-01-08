@@ -1,8 +1,7 @@
 package com.ibranco.mybatis.annotation.test;
 
-import com.ibranco.mybatis.annotation.domain.Account;
 import com.ibranco.mybatis.annotation.domain.User;
-import com.ibranco.mybatis.annotation.mapper.AccountMapper;
+import com.ibranco.mybatis.annotation.mapper.UserMapper;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -16,11 +15,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-public class AccountTest {
-    private Logger logger = Logger.getLogger(AccountTest.class);
+public class TestUser2Cache {
+    private Logger logger = Logger.getLogger(TestUser2Cache.class);
     private InputStream inputStream;
-    private SqlSession sqlSession;
-    private AccountMapper accountMapper;
     private SqlSessionFactory sqlSessionFactory;
 
     @Before
@@ -28,28 +25,29 @@ public class AccountTest {
         inputStream = Resources.getResourceAsStream("mybatis-config.xml");
         SqlSessionFactoryBuilder builder = new SqlSessionFactoryBuilder();
         sqlSessionFactory = builder.build(inputStream);
-        sqlSession = sqlSessionFactory.openSession(true);
-        accountMapper = sqlSession.getMapper(AccountMapper.class);
     }
     @After
     public void destory() throws IOException {
-        sqlSession.close();
         inputStream.close();
 
     }
-    @Test
-    public void testFindAll(){
-        List<Account> list = accountMapper.findAll();
-        for(Account item:list){
-            logger.info(item);
-        }
-    }
+
+
 
     @Test
-    public void testFindById(){
-        Account list = accountMapper.findById(4);
-            logger.info(list);
+    public void test2Cache(){
+        SqlSession sqlSession1 = sqlSessionFactory.openSession(true);
+        UserMapper userMapper1 = sqlSession1.getMapper(UserMapper.class);
+        User user1 = userMapper1.findById(1);
+        logger.info(user1);
+        sqlSession1.close();
+
+        SqlSession sqlSession2 = sqlSessionFactory.openSession(true);
+        UserMapper userMapper2 = sqlSession2.getMapper(UserMapper.class);
+        User user2 = userMapper2.findById(1);
+        logger.info(user2);
+        sqlSession2.close();
+
+        logger.info(user1 == user2);
     }
-
-
 }

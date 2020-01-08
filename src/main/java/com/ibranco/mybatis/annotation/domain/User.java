@@ -10,11 +10,20 @@ public class User implements Serializable {
     private String password;
     private int rid;
     private String name;
+    private List<Account> accounts;
 
 
     private List<Role> roles;
 
     public User() {
+    }
+
+    public List<Account> getAccounts() {
+        return accounts;
+    }
+
+    public void setAccounts(List<Account> accounts) {
+        this.accounts = accounts;
     }
 
     public int getId() {
@@ -66,15 +75,15 @@ public class User implements Serializable {
     }
 
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", rid=" + rid +
-                ", name='" + name + '\'' +
-                ", roles=" + roles +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "User{" +
+//                "id=" + id +
+//                ", username='" + username + '\'' +
+//                ", password='" + password + '\'' +
+//                ", rid=" + rid +
+//                ", name='" + name + '\'' +
+//                ", roles=" + roles +
+//                '}';
+//    }
 }

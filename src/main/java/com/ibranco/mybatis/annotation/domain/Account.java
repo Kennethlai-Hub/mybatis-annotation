@@ -5,6 +5,7 @@ public class Account {
     private Integer userid;
     private String aname;
     private Double amoney;
+    private User user;
 
     public Account() {
     }
@@ -41,6 +42,14 @@ public class Account {
         this.amoney = amoney;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     @Override
     public String toString() {
         return "Account{" +
@@ -48,6 +57,7 @@ public class Account {
                 ", userid=" + userid +
                 ", aname='" + aname + '\'' +
                 ", amoney=" + amoney +
+                ", user=" + user +
                 '}';
     }
 }

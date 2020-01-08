@@ -75,4 +75,22 @@ public class AnnotationTest {
     public void testDeleteById(){
         userMapper.deleteById(4);
     }
+
+    @Test
+    public void test1(){
+        List<User> list = userMapper.findAllUserAA();
+        for(User user:list){
+            logger.info(user);
+        }
+    }
+
+    @Test
+    public void test1Cache(){
+        User user1 = userMapper.findById(1);
+        logger.info(user1);
+        User user2 = userMapper.findById(1);
+        logger.info(user2);
+
+        logger.info(user1 == user2);
+    }
 }
